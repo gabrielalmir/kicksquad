@@ -1,0 +1,12 @@
+### Generate Image
+POST http://localhost:8000/generate-image
+Content-Type: application/json
+
+{
+    "prompt": "A collectible card featuring an anime waifu with long silver hair flowing elegantly, wearing a shimmering blue kimono with floral embroidery, emerald eyes glowing with resolve, holding a silver fan, framed with ornate gold borders, simple sunset gradient background",
+    "negative_prompt": "blurry, low quality, no card borders, complex background, masculine, dull colors",
+    "width": "1080",
+    "height": "1920",
+    "guidance_scale": "7.5",
+    "num_inference_steps": "50"
+}

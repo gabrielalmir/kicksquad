@@ -1,0 +1,33 @@
+services:
+  imagine:
+    build:
+      context: ./imagine
+    ports:
+      - "8000:8000"
+    volumes:
+      - huggingface_cache:/home/appuser/.cache/huggingface
+      - ./imagine/images:/app/images
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
+        limits:
+          memory: 4g
+          cpus: 1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    restart: on-failure
+
+  start:
+    build:
+      context: ./start
+    volumes:
+      - ./start/assets/prompts.csv:/app/assets/prompts.csv
+    restart: on-failure
+
+volumes:
+  huggingface_cache:
